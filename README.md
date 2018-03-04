@@ -1,25 +1,25 @@
 # EYXML2NSDictionary
-An NSXMLParser wrapper for converting XML to NSDictionary with blocks and background threading.
+An `NSXMLParser` wrapper for converting XML to `NSDictionary` with blocks and background threading.
 
-- Based on powerful built-in NSXMLParser
-- Asynchronous parsing and completion block with resulting NSDictionary or NSError
+- Based on powerful built-in `NSXMLParser`
+- Asynchronous parsing and completion block with resulting `NSDictionary` or `NSError`
 - Background threading for not blocking UI while parsing
 - Adding attibutes as key-value pairs after prefixing keys with `-` to prevent collision
 - Converting repeating elements to proper arrays
 - Handling inner texts among tags as an array using `-InnerText` key  
-- Excluding comments in resulting NSDictionary
+- Excluding comments in resulting `NSDictionary`
 
 
-#Usage
+## Usage
 
-- With XML data in NSData form
+- With XML data as `NSData`
 
 ```
-NSData* xml = [Read from disk or fetch from network];
+NSData* XMLData = [Read from disk or fetch from network];
 
-[EYXML2NSDictionary parseXMLData:xml completion:^(NSDictionary *dict, NSError *error)
+[EYXML2NSDictionary parseXMLData:XMLData completion:^(NSDictionary* dict, NSError* error)
 {
-    if(!error)
+    if (!error)
         NSLog(@"Result: %@", dict);
     else
         NSLog(@"Error: %@", error);
@@ -27,39 +27,32 @@ NSData* xml = [Read from disk or fetch from network];
     
 ```
     
-- With XML string in NSString form
+- With XML string as `NSString`
 
 ```
 
-NSString* XML = @""
+NSString* XMLString = @""
 "<message>"
 "    <to>A</to>"
 "    <from>B</from>"
-"    <title anAttribute = 'a1' anotherAttribute = 'a2'>First Title</title>"
-"    <title anAttribute = 'b1' anotherAttribute = 'b2'>Second Title</title>"
-"    <title >Third Title</title>"
 "    <title >Fourth Title</title>"
 "    <body>"
 "          This is meessage body."
 "        <attachment>Attachment 1</attachment>"
-"        <attachment>Attachment 2</attachment>"
-"       Yet more text is here."
-"        <attachment>Attachment 3</attachment>"
-"       This is the last text is this."
 "    </body>"
 "</message>";
 
-[EYXML2NSDictionary parseXMLString:XML completion:^(NSDictionary *dict, NSError *error)
+[EYXML2NSDictionary parseXMLString:XMLString completion:^(NSDictionary* dict, NSError* error)
 {
-    if(!error)
+    if (!error)
         NSLog(@"Result: %@", dict);
     else
         NSLog(@"Error: %@", error);
 }];
 ```
 
-#Examples
-## 1
+## Examples
+### 1
 
 - Input
 
@@ -77,7 +70,7 @@ NSString* XML = @""
         <attachment>Attachment 2</attachment>
        Yet more text is here.
         <attachment>Attachment 3</attachment>
-       This is the last text is this.
+       This is the last text.
     </body>
 </message>;
 ```
@@ -96,7 +89,7 @@ NSString* XML = @""
       "-InnerText": [
         "This is meessage body.",
         "Yet more text is here.",
-        "This is the last text is this."
+        "This is the last text."
       ]
     },
     "to": "A",
@@ -119,7 +112,7 @@ NSString* XML = @""
 }
 ```
 
-## 2
+### 2
 
 - Input
 

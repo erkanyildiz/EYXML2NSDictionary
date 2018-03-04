@@ -1,9 +1,17 @@
 // erkanyildiz
-// 20161011-1321+0900
+// 20180305-0051+0900
 //
 // EYXML2NSDictionary.h
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+
+extern NSErrorDomain const EYXML2NSDictionaryErrorDomain;
+
+NS_ENUM(NSInteger)
+{
+    EYXML2NSDictionaryErrorNilData = 1001,
+    EYXML2NSDictionaryErrorParsingFailed = 1002
+};
 
 @interface EYXML2NSDictionary : NSObject <NSXMLParserDelegate>
 
@@ -15,7 +23,7 @@
  @param data XML data to be parsed
  @param completion Completion block to be executed on main thread when parsing is completed, either with resulting @c dict object or @c error.
  */
-+ (void)parseXMLData:(NSData *)data completion:(void (^)(NSDictionary * dict, NSError * error))completion;
++ (void)parseXMLData:(NSData *)data completion:(void (^)(NSDictionary* dict, NSError* error))completion;
 
 /**
  * Parses the given XML string on a background thread and executes completion block with the resulting NSDictionary object on main thread.
@@ -23,5 +31,5 @@
  @param string XML string to be parsed
  @param completion Completion block to be executed on main thread when parsing is completed, either with resulting @c dict object or @c error.
  */
-+ (void)parseXMLString:(NSString *)string completion:(void (^)(NSDictionary * dict, NSError * error))completion;
++ (void)parseXMLString:(NSString *)string completion:(void (^)(NSDictionary* dict, NSError* error))completion;
 @end
